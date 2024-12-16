@@ -3,7 +3,8 @@ import HelloWorldRouteController from '../controllers/HelloWorldRouteController'
 import WSController from '../controllers/WSController';
 var router = express.Router();
 import auth from "../../shared/middlewares/authMiddleware";
-import { ENV_CONFIG } from '../../config/environment';
+import { ENV_CONFIG } from '../../config/environment'
+import paymentRouter from './payment';
 
 
 
@@ -19,5 +20,6 @@ router.get('/content', function (req: Request, res: Response, next: NextFunction
     res.render('index', { title: 'Hello World' });
 });
 router.get('/api', HelloWorldRouteController.hola);
+router.use("/payment", paymentRouter);
 
 export default router;

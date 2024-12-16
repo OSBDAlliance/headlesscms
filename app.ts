@@ -3,6 +3,8 @@ import requestLogger from './shared/middlewares/requestLogger';
 import indexRouter from './core/routes/index';
 import path from 'path';
 import './shared/utils/consoleOverride';
+import { DatabaseService } from './config/database';
+
 
 class App {
   public app: Express;
@@ -36,7 +38,14 @@ class App {
    * Handles any connection errors and logs them appropriately.
    * @private
    */
-  private databaseConnections() {
+  private async databaseConnections() {
+    try {
+      await DatabaseService.initialize();
+      console.log('Application initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize application:', error);
+      process.exit(1);
+    }
   }
 
   /**
