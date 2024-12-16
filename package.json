@@ -11,7 +11,10 @@
     "start": "nodemon --ext 'ts,js,mjs,json' --exec 'ts-node server.ts'",
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npm run typeorm migration:generate -- -d src/data-source.ts src/migrations/InitialMigration",
+    "migration:run": "npm run typeorm migration:run -- -d src/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -31,10 +34,13 @@
     "ejs": "^3.1.10",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "mysql2": "^3.11.5",
     "nodemon": "^3.1.9",
     "pino": "^9.5.0",
     "pino-http": "^10.3.0",
     "pino-pretty": "^13.0.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
     "ts-node-dev": "^2.0.0"
   }
 }
