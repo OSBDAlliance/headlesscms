@@ -88,4 +88,84 @@ Details about static assets and resources are available [here](./docs/static).
 
 ## Contributing
 TODO::
+User Authentication
+API Documentation
+Base URL
+bash
+Copy code
+http://localhost:3000/api/auth
+Endpoints
+1. Login
+Authenticate a user and retrieve a JWT token.
+
+URL: /login
+Method: POST
+Headers:
+Content-Type: application/json
+Request Body:
+json
+Copy code
+{
+  "userId": "U12345",
+  "password": "12345"
+}
+Response:
+Success (200):
+json
+Copy code
+{
+  "token": "<JWT_TOKEN>"
+}
+Error (401):
+json
+Copy code
+{
+  "message": "Invalid credentials"
+}
+2. Logout
+Logout a user by invalidating their session.
+
+URL: /logout
+Method: POST
+Headers:
+Authorization: Bearer <JWT_TOKEN>
+Request Body: (No body is required as userId is extracted from the token.)
+Response:
+Success (200):
+json
+Copy code
+{
+  "message": "User with ID <userId> logged out successfully"
+}
+Error (401):
+json
+Copy code
+{
+  "message": "Access denied"
+}
+Error (400):
+json
+Copy code
+{
+  "message": "Invalid token"
+}
+Authorization
+Both login and logout endpoints use JWT-based authentication:
+
+Login generates a JWT token using the user ID.
+Logout invalidates the token by extracting the userId from it.
+JWT Payload Example:
+
+json
+Copy code
+{
+  "userId": "U12345",
+  "iat": 1734340060,
+  "exp": 1734343660
+}
+Postman Collection
+The provided Postman collection includes:
+
+Login Endpoint: Sends the userId and password to retrieve a token.
+Logout Endpoint: Sends the JWT token in the Authorization header.
 
