@@ -13,7 +13,7 @@ router.get('/', function (req: Request, res: Response, next: NextFunction) {
 });
 router.all(
     '/ws/*',
-    auth,
+    auth(),
     WSController.index
 );
 router.get('/content', function (req: Request, res: Response, next: NextFunction) {

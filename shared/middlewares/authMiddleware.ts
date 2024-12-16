@@ -9,7 +9,7 @@ interface ParameterI {
     guard?: string;
 }
 
-const middleware = (req: Request, res: Response, next: NextFunction) => {
+const middleware = (data: ParameterI = { guard: 'web' }) => (req: Request, res: Response, next: NextFunction) => {
     next();
 }
 
