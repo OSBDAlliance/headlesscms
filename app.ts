@@ -3,6 +3,7 @@ import requestLogger from './shared/middlewares/requestLogger';
 import indexRouter from './core/routes/index';
 import path from 'path';
 import './shared/utils/consoleOverride';
+import { AppDataSource } from './src/data-source';
 
 class App {
   public app: Express;
@@ -37,6 +38,13 @@ class App {
    * @private
    */
   private databaseConnections() {
+    AppDataSource.initialize()
+        .then(() => {
+          console.log('Data Source has been initialized!');
+        })
+        .catch((err) => {
+          console.error('Error during Data Source initialization:', err);
+        });
   }
 
   /**
