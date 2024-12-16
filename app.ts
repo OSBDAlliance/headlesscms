@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import bodyParser from 'body-parser';
 import requestLogger from './shared/middlewares/requestLogger';
 import indexRouter from './core/routes/index';
 import path from 'path';
@@ -29,6 +30,10 @@ class App {
    */
   private config() {
     this.app.use(requestLogger);
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+
+    this.app.use(bodyParser.json());
+
   }
 
   /**

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "nodemon --ext 'ts,js,mjs,json' --exec 'ts-node server.ts'",
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typeorm": "typeorm-ts-node-commonjs",
@@ -20,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",
     "express": "^4.21.2",
@@ -27,8 +29,10 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.5",
     "nodemon": "^3.1.9",
@@ -37,5 +41,6 @@
     "pino-pretty": "^13.0.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
+    "ts-node-dev": "^2.0.0"
   }
 }
