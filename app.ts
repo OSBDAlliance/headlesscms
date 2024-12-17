@@ -1,9 +1,10 @@
-import express, { Express } from 'express';
-import bodyParser from 'body-parser';
-import requestLogger from './shared/middlewares/requestLogger';
-import indexRouter from './core/routes/index';
-import path from 'path';
-import './shared/utils/consoleOverride';
+import express, { Express } from "express";
+import bodyParser from "body-parser";
+import requestLogger from "./shared/middlewares/requestLogger";
+import indexRouter from "./core/routes/index";
+import path from "path";
+import "./shared/utils/consoleOverride";
+import { AppDataSource } from "./config/database";
 
 class App {
   public app: Express;
@@ -32,7 +33,6 @@ class App {
     this.app.use(bodyParser.urlencoded({ extended: false }));
 
     this.app.use(bodyParser.json());
-
   }
 
   /**
@@ -41,7 +41,14 @@ class App {
    * Handles any connection errors and logs them appropriately.
    * @private
    */
-  private databaseConnections() {
+  private async databaseConnections() {
+    try {
+      await AppDataSource.initialize();
+      console.log("Database connection established successfully");
+    } catch (error) {
+      console.error("Error connecting to the database:", error);
+      process.exit(1);
+    }
   }
 
   /**
@@ -50,8 +57,7 @@ class App {
    * Handles tasks such as authentication, logging, error handling, CORS, etc.
    * @private
    */
-  private middlewares() {
-  }
+  private middlewares() {}
 
   /**
    * Sets up all application routes.
@@ -70,9 +76,10 @@ class App {
    * @private
    */
   private views() {
-    this.app.set('views', path.join(__dirname, './views'));
-    this.app.set('view engine', 'ejs');
+    this.app.set("views", path.join(__dirname, "./views"));
+    this.app.set("view engine", "ejs");
   }
 }
 
 export default new App().app;
+export { AppDataSource };
